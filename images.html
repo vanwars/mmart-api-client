@@ -1,0 +1,70 @@
+<html ng-app="ImageApp">
+<head>
+	<title>Angular Demo App: Images</title>
+	<link href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"
+		rel="stylesheet" type="text/css" >
+	<link href="http://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.1.1/css/mdb.css" 
+		rel="stylesheet" type="text/css" >
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" 
+		rel="stylesheet" type="text/css" >
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+	<div class="container-fluid" ng-controller="ImageController">
+		<h1>Angular Demo App: Images</h1>
+		<p>Using the custom 
+			<a href="https://mmart162-api.herokuapp.com/videos/" target="_blank">MMART 162 endpoint</a>.
+
+		<!-- CREATE / EDIT FORM -->
+		<form novalidate class="simple-form" ng-submit="uploadImage()">
+			<div ng-messages="errorMessage" style="color:maroon" role="alert">
+			    <div ng-message="required">{{errorMessage}}</div>
+			 </div>
+            <input type="file" id="file_path" />
+			<input class="short" type="text" ng-model="image.name" placeholder="name" />
+            <input class="short"  type="text" ng-model="image.username" placeholder="username"/>
+			<input type="text" ng-model="image.description" placeholder="description" />
+			<button type="submit" class="btn btn-primary btn-lg waves-effect waves-light">Save</button>
+			<a class="btn btn-default btn-lg" ng-click="clear();">Clear</a>
+	  	</form>
+
+	  	<!-- Filter -->
+	  	<input class="filter" ng-model="searchTerm" type="text" autofocus placeholder="Enter filter term" />
+
+		<!-- TABLE DISPLAY -->
+		<table class="table">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Name</th>
+					<th>Description</th>
+					<th>Username</th>
+					<th>Image</th>
+					<th>Controls</th>
+				</tr>
+			</thead>
+			<tbody>
+				<!-- create a new row for each data model -->
+				<tr ng-repeat="item in images | filter: searchTerm">
+					<td>{{ item._id }}</td>
+					<td>{{ item.name }}</td>
+					<td>{{ item.description }}</td>
+					<td>{{ item.username }}</td>
+					<td><img class="thumb" ng-src="{{ item.file_path }}" /></td>
+					<td>
+						<a ng-click="editImage(item._id);"><i class="fa fa-edit"></i></a>
+		    			<a ng-click="deleteImage(item._id);"><i class="fa fa-trash"></i></a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+
+	</div>
+
+	<!-- including jQuery, angularJS, and your app -->
+	<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+	<script src='http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.min.js'></script>
+	<script src="js/imageApp.js" type="text/javascript"></script>
+</body>
+</html>

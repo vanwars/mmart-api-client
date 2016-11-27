@@ -1,0 +1,40 @@
+#artist {
+	margin-right: 20px;
+}
+
+.container-fluid {
+	max-width: 990px;
+}
+
+.card {
+  width: 300px;
+  margin: 20px 20px 20px 0px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.card-block {
+  padding: 15px 15px;
+}
+
+.short {
+    width: 180px !important;
+    display: inline-block;
+    margin-right: 110px;
+    margin-bottom: 30px;
+}
+.filter {
+	margin-top: 30px;
+}
+
+.simple-form {
+	background-color: #F0F0F0;
+	padding: 20px;
+}
+a[ng-click]{
+    cursor: pointer;
+}
+
+img.thumb {
+    max-height: 150px;
+}
