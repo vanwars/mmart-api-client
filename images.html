@@ -12,15 +12,17 @@
 <body>
 	<div class="container-fluid" ng-controller="ImageController">
 		<h1>Angular Demo App: Images</h1>
-		<p>Using the custom 
-			<a href="https://mmart162-api.herokuapp.com/videos/" target="_blank">MMART 162 endpoint</a>.
+		<p>Using the custom MMART 162 endpoint:
+			<a href="{{APIEndpoint}}" target="_blank">{{APIEndpoint}}</a>.
 
 		<!-- CREATE / EDIT FORM -->
 		<form novalidate class="simple-form" ng-submit="uploadImage()">
 			<div ng-messages="errorMessage" style="color:maroon" role="alert">
 			    <div ng-message="required">{{errorMessage}}</div>
 			 </div>
-            <input type="file" id="file_path" />
+            <input type="file" id="image" />
+            <input type="file" id="audio" />
+            <input type="file" id="file" />
 			<input class="short" type="text" ng-model="image.name" placeholder="name" />
             <input class="short"  type="text" ng-model="image.username" placeholder="username"/>
 			<input type="text" ng-model="image.description" placeholder="description" />
@@ -50,7 +52,7 @@
 					<td>{{ item.name }}</td>
 					<td>{{ item.description }}</td>
 					<td>{{ item.username }}</td>
-					<td><img class="thumb" ng-src="{{ item.file_path }}" /></td>
+					<td><img class="thumb" ng-src="{{ item.image.items[3].file_path }}" /></td>
 					<td>
 						<a ng-click="editImage(item._id);"><i class="fa fa-edit"></i></a>
 		    			<a ng-click="deleteImage(item._id);"><i class="fa fa-trash"></i></a>

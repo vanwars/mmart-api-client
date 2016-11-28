@@ -9,17 +9,20 @@ imageApp.config(function ($sceDelegateProvider) {
     ]);
 });
 
-//var APIEndpoint = "https://mmart162-api.herokuapp.com/images/";
-var APIEndpoint = "http://localhost:3000/images/";
 imageApp.controller('ImageController', function ($scope, $http) {
-
+    var username = "vanwars";
+    //$scope.APIEndpoint = "http://localhost:3000/" + username + "/images/";
+    $scope.APIEndpoint = "https://mmart162-api.herokuapp.com/" + username + "/images/";
     $scope.errorMessage = null;
-    $scope.image = {};
+    $scope.image = {
+        username: username
+    };
 
     // this code updates all of the models
     // which redraws the screen because of 
     // two-way data binding:
     var processData = function (response) {
+        console.log(response);
         $scope.images = response;
     };
 
@@ -43,7 +46,7 @@ imageApp.controller('ImageController', function ($scope, $http) {
 
     // this code queries the API using a GET request:
     $scope.getImages = function () {
-        $http.get(APIEndpoint, {
+        $http.get($scope.APIEndpoint, {
             params: {
                 // replace this with one of the valid params in the 
                 // Google Doc (youtube_id, username, genre, description)
@@ -56,16 +59,17 @@ imageApp.controller('ImageController', function ($scope, $http) {
     $scope.uploadImage = function () {
         if ($scope.image._id) {
             // if the video already exists, do a PUT request:
-            $http.put(APIEndpoint + $scope.image._id + "/", $scope.image)
+            $http.put($scope.APIEndpoint + $scope.image._id + "/", $scope.image)
                 .success($scope.clear).error($scope.processError);
         } else {
-            var files = document.getElementById("file_path").files,
-                fd = new FormData();
-            fd.append("file_path", files[0]);
-            fd.append("username", $scope.image.username);
+            var fd = new FormData();
+            fd.append("image", document.getElementById("image").files[0]);
+            fd.append("audio", document.getElementById("audio").files[0]);
+            fd.append("file", document.getElementById("file").files[0]);
+            //fd.append("username", $scope.image.username);
             fd.append("name", $scope.image.name);
             fd.append("description", $scope.image.description);
-            $http.post(APIEndpoint, fd, {
+            $http.post($scope.APIEndpoint, fd, {
                 headers: {
                     'Content-Type': undefined
                 },
@@ -76,7 +80,7 @@ imageApp.controller('ImageController', function ($scope, $http) {
 
     // this code deletes a video using the DELETE request:
     $scope.deleteImage = function (id) {
-        $http.delete(APIEndpoint + id + "/")
+        $http.delete($scope.APIEndpoint + id + "/")
             .success(function () {
                 //requery videos:
                 $scope.getImages();
