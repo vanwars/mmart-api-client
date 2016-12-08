@@ -9,8 +9,8 @@ videoApp.config(function($sceDelegateProvider) {
   	]); 
 });
 
-//var APIEndpoint = "https://mmart162-api.herokuapp.com/videos/";
-var APIEndpoint = "http://localhost:3000/videos/";
+var APIEndpoint = "https://mmart162-api.herokuapp.com/videos/";
+//var APIEndpoint = "http://localhost:3000/videos/";
 videoApp.controller('VideoController', function ($scope, $http) {
 
     $scope.errorMessage = null;
